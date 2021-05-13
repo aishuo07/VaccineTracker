@@ -11,3 +11,4 @@ requests==2.24.0
 simplejson==3.17.2
 virtualenv==20.0.33
 virtualenv-clone==0.5.4
+gunicorn
