@@ -6,7 +6,6 @@ import pymongo
 
 app = Flask(__name__, static_url_path='/static')
 mongo = pymongo.MongoClient("mongodb+srv://Aish:Aish1234@cluster0.lrwnk.mongodb.net/Cowin?retryWrites=true&w=majority")
-dp = mongo.test
 @app.route('/')
 def home():
     return render_template('index.html')
