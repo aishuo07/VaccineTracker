@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Pop-Up Overlay</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1"><link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto+Condensed'><link rel="stylesheet" href="../static/css/newsletter_style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div class="button">
+  <button><span>Click Me</span></button>
+</div>
+
+<div class="pop-up">
+  <div class="content">
+    <div class="container">
+      <div class="dots">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+      
+      <span class="close">close</span>
+      
+      <div class="title">
+        <h1>subscribe</h1>
+      </div>
+      
+      <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/256492/cXsiNryL.png" alt="Car">
+      
+      <div class="subscribe">
+        <h1>Get Alerts <span>For &amp; Vaccination</span>.</h1>
+      
+        <form action='/addemail' method ='POST'>
+          <input name = 'email' type="email" placeholder="Your email address" required = 'required'>
+          <input name = 'Pincode' type="number" placeholder="Your Pincode" required = 'required'>
+          <input class = 'submit_btn' type="submit" value="Get Alerts">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- partial -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script><script  src="../static/js/newsletter_script.js"></script>
+
+</body>
+</html>

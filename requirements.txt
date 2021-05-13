@@ -1,0 +1,15 @@
+flask
+gunicorn
+traceback2
+click
+itsdangerous
+Jinja2
+MarkupSafe
+itsdangerous
+Jinja2
+Werkzeug
+json
+flask_pymongo
+requests
+smtplib
+dnspython

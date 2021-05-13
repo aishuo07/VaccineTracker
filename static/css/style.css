@@ -1,0 +1,95 @@
+
+
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body{
+  background: white;
+  padding: 0 20px;
+}
+.wrapper{
+    max-width: 300px;
+    margin: 150px auto;
+}
+
+.wrapper .search-input{
+    position: relative;
+    background: #fff;
+    width: 100%;
+    border-radius: 5px;
+    box-shadow: 0px 5px 3px rgba(0, 0, 0 0,.12);
+}
+
+.wrapper .submit-btn{
+    width: 40%;
+    height: 50px;
+    margin: 20px auto;
+    position:relative;
+    color:white;
+    border-radius: 25px;
+    display: block;
+    background-color:cornflowerblue;
+    
+}
+
+.search-input input{
+    height: 55px;
+    width:100%;
+    outline:none;
+    border:none;
+    border-radius: 5px;
+    padding: 0 60px 0 20px;
+    font-size: 18px;
+    box-shadow: 0px 1px 5px rgba(0,0, 0, 0.1);
+}
+
+.search-input .icon{
+    height: 55px;
+    width: 55px;
+    line-height: 55px;
+    position:absolute;
+    top:0;
+    right:0;
+    text-align: center;
+    font-size: 20px;
+    color: #644bff;
+    cursor: pointer;
+}
+
+.search-input .autocom-box{
+    padding: 0px;
+    max-height:280px;
+    overflow-y: auto;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.search-input.active .autocom-box{
+    padding: 10px 8px;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.autocom-box li{
+    list-style: none;
+    padding: 8px 12px;
+    width:100%;
+    cursor: default;
+    border-radius: 3px;
+    display: none;
+}
+
+.search-input.active .autocom-box li{
+    display: block;
+
+}
+.autocom-box li:hover{
+    background: #efefef;
+
+}
