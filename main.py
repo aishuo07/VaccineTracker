@@ -34,6 +34,7 @@ def availabilty():
           d+=i + '-'
     d+=t_date[-1]
     r = requests.get("https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByPin?pincode=" + str(pincode) + "&date=" + d, headers = headers)
+    print(r)
     c = r.json()
     return render_template('table.html', loc_data = c)
 
