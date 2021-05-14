@@ -40,8 +40,7 @@ def getdate():
     
 
 def getrequest(pincode):
-    URL = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByPin?pincode=" +'11111111' + "&date=" + getdate()
-    print(URL)
+    URL = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByPin?pincode=" +i['pincode'] + "&date=" + getdate()
     return requests.get(URL, headers = headers, proxies=proxyDict).json()
 
 

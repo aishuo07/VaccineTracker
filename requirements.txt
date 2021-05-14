@@ -3,7 +3,6 @@ Flask==1.1.2
 Flask-PyMongo==2.3.0
 json5==0.9.5
 jsonschema==3.2.0
-msedge-selenium-tools==3.141.3
 pipenv==2020.8.13
 pymongo==3.11.3
 python-dateutil
