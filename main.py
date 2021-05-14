@@ -14,6 +14,14 @@ def home():
 def availabilty():
     pincode = request.form.get('Pincode')
     d = ''
+    http_proxy  = "http://ec2-65-1-80-176.ap-south-1.compute.amazonaws.com:8888"
+    https_proxy = "http://ec2-65-1-80-176.ap-south-1.compute.amazonaws.com:8888"
+    ftp_proxy   = "ftp://10.10.1.10:3128"
+
+    proxyDict = { 
+                "http"  : http_proxy, 
+                "https" : https_proxy, 
+                }
     headers = {
         'Host': 'cdn-api.co-vin.in',
         'Connection': 'close',
@@ -33,7 +41,8 @@ def availabilty():
     for i in t_date[:-1]:
           d+=i + '-'
     d+=t_date[-1]
-    r = requests.get("https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByPin?pincode=" + str(pincode) + "&date=" + d, headers = headers)
+    print(d)
+    r = requests.get("https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByPin?pincode=" + str(pincode) + "&date=" + d, headers = headers, proxies=proxyDict)
     print(r)
     c = r.json()
     return render_template('table.html', loc_data = c)
