@@ -1,17 +1,16 @@
 import json
 import time
-from datetime import date
+import datetime
 import requests
 import smtplib
 import pymongo
 
 client = pymongo.MongoClient("mongodb+srv://Aish:Aish1234@cluster0.lrwnk.mongodb.net/Cowin?retryWrites=true&w=majority")
-db = client["db"]
+db = client["Cowin"]
 col = db["bucketList"]
 
 http_proxy  = "http://ec2-65-1-80-176.ap-south-1.compute.amazonaws.com:8888"
 https_proxy = "http://ec2-65-1-80-176.ap-south-1.compute.amazonaws.com:8888"
-ftp_proxy   = "ftp://10.10.1.10:3128"
 
 proxyDict = { 
               "http"  : http_proxy, 
@@ -33,33 +32,52 @@ headers = {
         'Accept-Language': 'en-GB,en-US;q=0.9,en;q=0.8,hi;q=0.7'
 }
 
-def get_List(x):
-    t_date = str(date.today()).split('-')[::-1]
-    d = ''
-    for i in t_date[:-1]:
-          d+=i + '-'
-    d+=t_date[-1]
+my_email =  "getvaccinated3@gmail.com"
+password = "Aish@1234"
+
+def getdate():
+    return datetime.datetime.today().strftime('%d-%m-%Y')
+    
+
+def getrequest(pincode):
+    URL = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByPin?pincode=" +'11111111' + "&date=" + getdate()
+    print(URL)
+    return requests.get(URL, headers = headers, proxies=proxyDict).json()
+
+
+def get_List(x, dic):
     for i in x:
-        r = requests.get("https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByPin?pincode=" + i['pincode'] + "&date=" + d, headers = headers, proxies=proxyDict)
-        c = r.json()
+        r = getrequest(i['pincode'])
         print("checked for: " + i['email'])
         message = '\n Vaccine available at :'
-        flag = False
-        count = 1
-        for j in c['centers']:
-            print(j['sessions'][0]["available_capacity"])
+        flag, count = False, 1
+        if 'error' in r:
+            continue
+        for j in r['centers']:
             if j['sessions'][0]["available_capacity"]>0:
                 flag = True
                 message += '\n{}.) Center Name -  {} \n Address - {} \n Vaccine available - {} \n Date - {}\n'.format(count, j['name'], j['address']  + ', ' + j["district_name"] + ', ' + j["state_name"], j["sessions"][0]["available_capacity"], j["sessions"][0]["date"])
                 count+=1
-        if flag:
-            s = smtplib.SMTP('smtp.gmail.com', 587)
-            s.starttls()
-            s.login("getvaccinated3@gmail.com", "Aish@1234")
-            s.sendmail("getvaccinated3@gmail.com",i['email'], message)
-            s.quit()
+        if flag and i['email'] not in dic:
+            send_mail(i['email'], message)
 
+def send_mail(email, message):
+    SUBJECT = "Vaccine available"
+    mess = 'Subject: {}\n\n{}'.format(SUBJECT, message)
+    s = smtplib.SMTP('smtp.gmail.com', 587)
+    s.starttls()
+    s.login(my_email, password)
+    s.sendmail(my_email,email, mess)
+    s.quit()
+    print("mail sent to "+email)
+    dic[email] = None
+
+c, dic = 0, {}
 while True:
     x = col.find()
-    get_List(x)
-    time.sleep(60)
+    get_List(x, dic)
+    c+=1
+    time.sleep(10)
+    if c == 600:
+      c = 0
+      dic = {}
