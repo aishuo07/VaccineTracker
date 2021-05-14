@@ -6,7 +6,7 @@ import smtplib
 import pymongo
 
 client = pymongo.MongoClient("mongodb+srv://Aish:Aish1234@cluster0.lrwnk.mongodb.net/Cowin?retryWrites=true&w=majority")
-db = client["Cowin"]
+db = client["db"]
 col = db["bucketList"]
 
 http_proxy  = "http://ec2-65-1-80-176.ap-south-1.compute.amazonaws.com:8888"
