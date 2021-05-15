@@ -9,13 +9,6 @@ client = pymongo.MongoClient("mongodb+srv://Aish:Aish1234@cluster0.lrwnk.mongodb
 db = client["db"]
 col = db["bucketList"]
 
-http_proxy  = "http://ec2-65-1-80-176.ap-south-1.compute.amazonaws.com:8888"
-https_proxy = "http://ec2-65-1-80-176.ap-south-1.compute.amazonaws.com:8888"
-
-proxyDict = { 
-              "http"  : http_proxy, 
-              "https" : https_proxy, 
-            }
 headers = {
         'Host': 'cdn-api.co-vin.in',
         'Connection': 'close',
@@ -40,8 +33,8 @@ def getdate():
     
 
 def getrequest(pincode):
-    URL = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByPin?pincode=" +i['pincode'] + "&date=" + getdate()
-    return requests.get(URL, headers = headers, proxies=proxyDict).json()
+    URL = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByPin?pincode=" +pincode+ "&date=" + getdate()
+    return requests.get(URL, headers = headers).json()
 
 
 def get_List(x, dic):

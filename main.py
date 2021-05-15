@@ -1,5 +1,5 @@
 import requests
-from datetime import date
+import datetime
 from flask import Flask, render_template, request, jsonify
 import json
 import pymongo
@@ -14,14 +14,6 @@ def home():
 def availabilty():
     pincode = request.form.get('Pincode')
     d = ''
-    http_proxy  = "http://ec2-65-1-80-176.ap-south-1.compute.amazonaws.com:8888"
-    https_proxy = "http://ec2-65-1-80-176.ap-south-1.compute.amazonaws.com:8888"
-    ftp_proxy   = "ftp://10.10.1.10:3128"
-
-    proxyDict = { 
-                "http"  : http_proxy, 
-                "https" : https_proxy, 
-                }
     headers = {
         'Host': 'cdn-api.co-vin.in',
         'Connection': 'close',
@@ -37,12 +29,9 @@ def availabilty():
         'Accept-Encoding': 'gzip, deflate',
         'Accept-Language': 'en-GB,en-US;q=0.9,en;q=0.8,hi;q=0.7'
     }
-    t_date = str(date.today()).split('-')[::-1]
-    for i in t_date[:-1]:
-          d+=i + '-'
-    d+=t_date[-1]
+    d = datetime.datetime.today().strftime('%d-%m-%Y')
     print(d)
-    r = requests.get("https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByPin?pincode=" + str(pincode) + "&date=" + d, headers = headers, proxies=proxyDict)
+    r = requests.get("https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/calendarByPin?pincode=" + str(pincode) + "&date=" + d, headers = headers)
     print(r)
     c = r.json()
     return render_template('table.html', loc_data = c)
