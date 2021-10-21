@@ -1,1 +1,1 @@
-web: gunicorn send_alert:app
+web: gunicorn main:app
